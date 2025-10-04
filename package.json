@@ -1,0 +1,13 @@
+{
+  "name": "bl4-shift-discord-notifier",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "chrono-node": "^2.6.7",
+    "redis": "^4.6.12"
+  }
+}
