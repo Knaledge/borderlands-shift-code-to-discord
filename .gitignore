@@ -137,3 +137,15 @@ dist
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# Generic
+/.idea
+/.vs/
+/game
+/_scratch/
+/staging/
+
+# Secrets
+/_secrets/
+discord_webhook_url.txt
+redis_password.txt
