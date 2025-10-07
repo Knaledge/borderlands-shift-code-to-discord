@@ -46,7 +46,7 @@ export async function loadConfig() {
     reddit: {
       subreddit: process.env.REDDIT_SUBREDDIT || 'Borderlandsshiftcodes',
       userAgent:
-        process.env.REDDIT_USER_AGENT || 'PrototypeShiftBot/1.0 (by /u/yourname)',
+        process.env.REDDIT_USER_AGENT || 'PrototypeShiftBot/1.0',
       lookbackDays: Math.max(1, toNumber(process.env.REDDIT_LOOKBACK_DAYS, 7)),
       maxPages: Math.max(1, toNumber(process.env.REDDIT_MAX_PAGES, 6))
     },
