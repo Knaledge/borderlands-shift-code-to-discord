@@ -146,6 +146,7 @@ vite.config.ts.timestamp-*
 /staging/
 
 # Secrets
+/secrets/
 /_secrets/
 discord_webhook_url.txt
 redis_password.txt

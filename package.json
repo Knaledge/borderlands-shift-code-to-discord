@@ -1,10 +1,10 @@
 {
-  "name": "bl4-shift-discord-notifier",
+  "name": "borderlands-shift-discord-notifier",
   "version": "1.0.0",
   "type": "module",
-  "main": "src/index.js",
+  "main": "core/index.js",
   "scripts": {
-    "start": "node src/index.js"
+    "start": "node core/index.js"
   },
   "dependencies": {
     "chrono-node": "^2.6.7",
