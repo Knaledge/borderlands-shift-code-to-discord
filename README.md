@@ -17,7 +17,7 @@ Docker-first automation that continuously scrapes the subreddit 'r/borderlandssh
 - Metrics export (Prometheus) and structured logging
 
 ### Thanks & Credits
-Huge thanks to the r/Borderlands community, the maintainers of 'r/borderlandsshiftcodes, and countless fans sharing codes
+Huge thanks to the r/Borderlands community, the maintainers of 'r/borderlandsshiftcodes', and countless fans sharing codes
 
 ---
 
