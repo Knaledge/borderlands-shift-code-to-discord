@@ -41,7 +41,7 @@ function buildEmbedPayload(codes) {
   return {
     embeds: [
       {
-        title: `Latest Borderlands 4 SHiFT Codes`,
+        title: `Latest Borderlands SHiFT Codes`,
         color: 0xf40313,
         timestamp: new Date().toISOString(),
         fields: buildGroupFields(groups),
