@@ -1,0 +1,13 @@
+{
+  "name": "borderlands-shift-discord-notifier",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "core/index.js",
+  "scripts": {
+    "start": "node core/index.js"
+  },
+  "dependencies": {
+    "chrono-node": "^2.6.7",
+    "redis": "^4.6.12"
+  }
+}

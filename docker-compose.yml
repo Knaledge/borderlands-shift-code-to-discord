@@ -1,0 +1,67 @@
+services:
+  app:
+    build: .
+    user: "${APP_UID:-1000}:${APP_GID:-1000}"
+    depends_on:
+      - redis
+    environment:
+      NODE_ENV: production
+      REDDIT_SUBREDDIT: "${REDDIT_SUBREDDIT:-borderlandsshiftcodes}"
+      REDDIT_USER_AGENT: "${REDDIT_USER_AGENT:-BorderlandsSHiFTCodePublishing/1.0}"
+      REDDIT_LOOKBACK_DAYS: "${REDDIT_LOOKBACK_DAYS:-30}"
+      REDDIT_MAX_PAGES: "${REDDIT_MAX_PAGES:-6}"
+      POLL_INTERVAL_MINUTES: "${POLL_INTERVAL_MINUTES:-120}"
+      RETRY_ATTEMPTS: "${RETRY_ATTEMPTS:-4}"
+      RETRY_BASE_DELAY_MS: "${RETRY_BASE_DELAY_MS:-2000}"
+      REDIS_HOST: "${REDIS_HOST:-redis}"
+      REDIS_PORT: "${REDIS_PORT:-6379}"
+      REDIS_TLS: "${REDIS_TLS:-false}"
+      REDIS_USERNAME: "${REDIS_USERNAME:-}"
+      REDIS_PASSWORD_SECRET: "${REDIS_PASSWORD_SECRET:-redis_password}"
+      DISCORD_WEBHOOK_SECRET: "${DISCORD_WEBHOOK_SECRET:-discord_webhook_url}"
+      SHIFT_EXPIRED_GRACE_DAYS: "${SHIFT_EXPIRED_GRACE_DAYS:-1}"
+      SHIFT_LOG_CODES_VERBOSE: "${SHIFT_LOG_CODES_VERBOSE:-true}"
+    secrets:
+      - discord_webhook_url
+      - redis_password
+    restart: unless-stopped
+
+  redis:
+    image: redis:7.4-alpine
+    ports:
+      - "6379:6379"
+    command:
+      - sh
+      - -c
+      - |
+        IFS= read -r AUTH < /run/secrets/redis_password
+        if [ -z "$${AUTH}" ]; then
+          echo "redis password secret is empty" >&2
+          exit 1
+        fi
+        exec redis-server --save 60 1 --loglevel warning --requirepass "$${AUTH}"
+    environment:
+      - REDIS_PASSWORD_FILE=/run/secrets/redis_password
+    volumes:
+      - redis-data:/data
+    secrets:
+      - redis_password
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "IFS= read -r AUTH < /run/secrets/redis_password && redis-cli -h 127.0.0.1 -p 6379 -a \"$$AUTH\" PING"
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+volumes:
+  redis-data:
+
+secrets:
+  discord_webhook_url:
+    file: ./secrets/discord_webhook_url.txt
+  redis_password:
+    file: ./secrets/redis_password.txt
